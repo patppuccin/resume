@@ -23,7 +23,7 @@ jobs:
       - name: Compile Typst to PDF
         run: |
           mkdir -p out
-          ttypst compile --font-path ./assets/fonts/ ./resume.typ resume-patrick-ambrose.pdf
+          typst compile --font-path ./assets/fonts/ ./resume.typ resume-patrick-ambrose.pdf
 
       - name: Push to portfolio repo
         run: |
