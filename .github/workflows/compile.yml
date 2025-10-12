@@ -1,0 +1,39 @@
+name: Build & Push Resume PDF
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout resume source
+        uses: actions/checkout@v4
+
+      - name: Install Typst
+        run: |
+          wget https://github.com/typst/typst/releases/latest/download/typst-x86_64-unknown-linux-musl.tar.xz
+          tar -xf typst-x86_64-unknown-linux-musl.tar.xz
+          sudo mv typst /usr/local/bin/
+
+      - name: Compile Typst to PDF
+        run: |
+          mkdir -p out
+          ttypst compile --font-path ./assets/fonts/ ./resume.typ resume-patrick-ambrose.pdf
+
+      - name: Push to portfolio repo
+        run: |
+          git config --global user.name "Pat Ambrose (CI)"
+          git config --global user.email "actions@github.com"
+
+          # Clone the target repo shallowly for performance
+          git clone --depth 1 https://github.com/patpuccin/portfolio target-repo
+          cp resume-patrick-ambrose.pdf target-repo/public/resume-patrick-ambrose.pdf
+
+          cd target-repo
+          git add public/resume-patrick-ambrose.pdf
+          git commit -m "update: resume PDF ($(date +'%Y-%m-%d %H:%M:%S'))" || echo "No changes to commit"
+          git push https://patpuccin:${{secrets.RESUME_PUSH_TO_PORTFOLIO_REPO }}@github.com/patpuccin/portfolio.git main
