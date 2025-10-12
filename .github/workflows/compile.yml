@@ -27,7 +27,7 @@ jobs:
 
       - name: Push to portfolio repo
         env:
-          TARGET_REPO: patpuccin/portfolio
+          TARGET_REPO: patppuccin/portfolio
           TARGET_PATH: public/resume-patrick-ambrose.pdf
         run: |
           set -e  # exit on first error
