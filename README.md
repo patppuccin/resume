@@ -2,6 +2,8 @@
 
 A clean, ATS-friendly resume template built with Typst. Features a two-column layout optimized for readability and information density.
 
+The published version of the resume can be found [here](https://patrickambrose.com/resume-patrick-ambrose.pdf).
+
 ## Features
 
 - **ATS Friendly**: Structured markup that applicant tracking systems can easily parse

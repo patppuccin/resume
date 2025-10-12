@@ -36,10 +36,13 @@ jobs:
       link: https://www.caplinsteriles.net/
       location: Chennai, India
     description:
-      - Spearheaded the development and deployment of an internal wiki site utilizing the Astro web development framework, Apache web server, and a FastAPI backend. This initiative promoted open knowledge sharing within the organization.
-      - Conducted proactive server maintenance to optimize performance and minimize downtime, ensuring the reliability of critical systems.
-      - Proficiently automated document creation with VBA scripting, streamlined processes, and system administration using PowerShell scripting, and PDF data scraping with Python leading to increased productivity and reduced manual workload.
-      - Working on setting up a robust monitoring environment with Prometheus and Grafana for live server monitoring and troubleshooting.
+      - Designed & built an internal Wiki system in Go, managing 4,000+ PDF documents with full text search & multimedia playback.
+      - Architected MCP Servers as a proof-of-concept personal assistant integrating AI & automation services.
+      - Automated application onboarding and bulk management using Python + Playwright, reducing manual setup time by 80%.
+      - Engineered a Go-based SQL Server backup service with retention, compression, and scheduled jobs.
+      - Modernized infrastructure by migrating from legacy Apache to Caddy, implementing auto-renewing SSL/TLS with Let’s Encrypt.
+      - Developed automation workflows for reporting & analytics using Python, PowerShell & VBA enabling data-driven decisions.
+      - Implemented Python-based analytics and web-scraping pipelines to monitor ChatGPT usage and derive actionable insights.
   - position: Planning & Scheduling Specialist
     period: "2020 July - 2022 August"
     company:
