@@ -1,0 +1,4 @@
+# GITIGNORE Configuration for Resume =======================
+
+# Ignore the compiled (PDF) outputs
+*.pdf

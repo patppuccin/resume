@@ -1,0 +1,111 @@
+# ==== Resume Configuration ================================
+
+# ---- Personal Information --------------------------------
+personal:
+  name: Patrick Ambrose
+  title: DevOps & Software Engineer
+
+# ---- Contact Information ---------------------------------
+contacts:
+  name: Patrick Ambrose
+  title: DevOps & Software Engineer
+  email: hey@patrickambrose.com
+  address: "Chennai, India"
+  location: India
+  linkedin:
+    url: https://www.linkedin.com/in/pat-ambrose/
+    displayText: "pat-ambrose"
+  github:
+    url: https://github.com/johndoe/
+    displayText: "patppuccin"
+  website:
+    url: https://www.patrickambrose.com
+    displayText: www.patrickambrose.com
+
+summary: DevOps-focused software engineer with 5 years of experience building scalable infrastructure, 
+  automation pipelines, and internal platforms across cloud and hybrid environments. 
+  Known for solving complex engineering challenges, improving performance, 
+  and integrating emerging technologies into practical, high-impact systems. 
+  Driven by curiosity, precision, and a continual pursuit of technical excellence.
+
+jobs:
+  - position: Senior Executive - Digital Transformations
+    period: "2022 August - Present"
+    company:
+      name: Caplin Steriles Limited
+      link: https://www.caplinsteriles.net/
+      location: Chennai, India
+    description:
+      - Spearheaded the development and deployment of an internal wiki site utilizing the Astro web development framework, Apache web server, and a FastAPI backend. This initiative promoted open knowledge sharing within the organization.
+      - Conducted proactive server maintenance to optimize performance and minimize downtime, ensuring the reliability of critical systems.
+      - Proficiently automated document creation with VBA scripting, streamlined processes, and system administration using PowerShell scripting, and PDF data scraping with Python leading to increased productivity and reduced manual workload.
+      - Working on setting up a robust monitoring environment with Prometheus and Grafana for live server monitoring and troubleshooting.
+  - position: Planning & Scheduling Specialist
+    period: "2020 July - 2022 August"
+    company:
+      name: Dr.Reddy's Laboratories
+      link: https://www.drreddys.com/
+      location: Hyderabad, India
+    description:
+    - Streamlined operational processes through automation and data-driven tooling within the logistics domain.
+    - Designed a near real-time system to forecast material shortages, reducing production delays.
+    - Utilized SAP and custom scripts for data processing and monitoring to enhance efficiency.
+
+projects:
+  - name: ASKY - Interactive prompt library for Go
+    link:
+      display: github.com/patppuccin/asky
+      url: https://github.com/patppuccin/asky
+    description: Golang TUI library that provides primitives for building interactive prompts, designed to be simple, lightweight, and extensible.
+    year: 2025 - Present
+  - name: Viewr - Web-based, read-only file browser
+    link:
+      display: github.com/patppuccin/viewr
+      url: https://github.com/patppuccin/viewr
+    description: Web-based, read-only file browser that allows file browsing that can be used internally or behind a tunnel or a VPN.
+    year: 2025 - Present
+
+tech_stack:
+  - name: Programming & Scripting
+    tools: [Go, Python, PowerShell, Bash, Bun/NodeJS, Rust]
+  - name: Databases
+    tools: [SQLite, PostgreSQL, MySQL/MariaDB, MongoDB, Redis, Valkey]
+  - name: Cloud & Edge
+    tools: [AWS, Cloudflare, DigitalOcean]
+  - name: Containers & Orchestration
+    tools: [Docker, Podman, Kubernetes, Nomad]
+  - name: Automation & Infrastructure
+    tools: [Terraform, Pulumi, Ansible, Packer, Vagrant, Make/Task]
+  - name: CI/CD
+    tools: [GitHub Actions, Jenkins, ArgoCD, DroneCI]
+  - name: Observability
+    tools: [Grafana, Prometheus, Loki, Meilisearch]
+  - name: OS & Networking
+    tools: [Linux, Windows, Nginx, Caddy, Traefik]
+  - name: Security & Secrets
+    tools: [Vault, SOPS, GPG, DPAPI, OpenSSL]
+  - name: Web Stack
+    tools: [FastAPI, Astro, AlpineJS, HTMX, TailwindCSS, Playwright]
+  - name: Tooling & Productivity
+    tools: [VSCode, Git, Figma, Notion, fzf, tmux, Nushell]
+
+methodologies: [Agile, Scrum, Kanban, Lean, DevOps Culture]
+
+certifications:
+  - name: AWS CSA - Associate
+    year: 2022
+    description: Certified Solutions Architect
+  - name: AWS CCP - Associate
+    year: 2021
+    description: Certified Cloud Practitioner
+
+education:
+  - place:
+      name: SASTRA University
+      link: "http://www.sastra.edu/"
+    degree: "B.Tech"
+    major: Biotechnology
+    track: Biotech and Bio Sciences
+    from: "2016"
+    to: "2020"
+    location: Tanjavur, TN
