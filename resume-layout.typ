@@ -66,7 +66,7 @@
 ) = {
   // Set Document Properties and Metadata ==================
   set document(
-    title: name + "'s CV",
+    title: name + "'s Resume",
     author: name,
     description: "Resume of " + name,
     date: datetime.today(),
