@@ -5,9 +5,11 @@
 #resume(
   name: cfg.personal.name,
   position: cfg.personal.title,
+  location: cfg.personal.location,
   links: (
-    (name: "location", link: "", display: cfg.contacts.address),
-    (name: "email", link: "mailto:" + cfg.contacts.email),
+    (name: "phone", link: cfg.contacts.phone.url, display: cfg.contacts.phone.displayText),
+    // (name: "location", link: cfg.contacts.location.url, display: cfg.contacts.location.displayText),
+    (name: "email", link: cfg.contacts.email.url, display: cfg.contacts.email.displayText),
     (name: "github", link: cfg.contacts.github.url, display: cfg.contacts.github.displayText),
     (name: "linkedin", link: cfg.contacts.linkedin.url, display: cfg.contacts.linkedin.displayText),
     (name: "website", link: cfg.contacts.website.url, display: cfg.contacts.website.displayText),

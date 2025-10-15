@@ -3,15 +3,17 @@
 # ---- Personal Information --------------------------------
 personal:
   name: Patrick Ambrose
-  title: DevOps & Software Engineer
+  title: DevOps, Cloud & Software Engineer
+  location: Chennai, India
 
 # ---- Contact Information ---------------------------------
 contacts:
-  name: Patrick Ambrose
-  title: DevOps & Software Engineer
-  email: hey@patrickambrose.com
-  address: "Chennai, India"
-  location: India
+  phone:
+    url: tel:+917171610905
+    displayText: +91 78716 10905
+  email: 
+    url: mailto:hey@patrickambrose.com
+    displayText: hey@patrickambrose.com
   linkedin:
     url: https://www.linkedin.com/in/pat-ambrose/
     displayText: "pat-ambrose"

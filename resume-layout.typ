@@ -11,7 +11,7 @@
 }
 
 #let contacts(services) = {
-  set text(9pt)
+  set text(9.4pt)
   let icon = icon.with(shift: 2.5pt)
 
   services
@@ -24,7 +24,7 @@
         link(service.link)
       }
     })
-    .join(h(7.5pt))
+    .join(h(9pt))
   v(0.5em)
 }
 
@@ -59,6 +59,7 @@
 #let resume(
   name: "Dohn Joe",
   position: "Software Engineer",
+  location: "Wakanda",
   links: (),
   summary: [],
   left-side,
@@ -92,7 +93,7 @@
 
   // Name and Position -------------------------------------
   text(18pt, weight: "bold", fill: primary-colour)[#name #v(-10pt)]
-  text(12pt, weight: "medium")[#position #v(0pt)]
+  text(12pt, weight: "medium")[#position #h(2pt) · #h(2pt) #location #v(0pt)]
 
   // Contacts ----------------------------------------------
   contacts(links)
