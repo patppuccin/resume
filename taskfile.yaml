@@ -1,57 +1,99 @@
 version: "3"
 
+silent: true
+
 vars:
   BANNER: 'echo -e "\\033[1;33m$\\033[0m"'
   FONT_PATH: assets/fonts
   OUT_DIR: generated
   NAME: patrick-ambrose
-  DEFAULT_VARIANT: devops-resume
+  DEFAULT_RESUME_VARIANT: devops-resume
+  DEFAULT_LETTER_VARIANT: devops-letter
 
 tasks:
   default:
     desc: List available tasks
     cmds:
-      - echo "run 'task --list' to see available tasks"
+      - echo ">> run 'task --list' to see available tasks"
 
-  watch:
-    silent: true
-    desc: "Watch for changes and recompile (usage: task watch [-- <variant>])"
+  prep:
+    internal: true
+    cmds:
+      - cmd: powershell -NoProfile -Command "New-Item -ItemType Directory -Force -Path {{.OUT_DIR}}/resume, {{.OUT_DIR}}/letter | Out-Null"
+        platforms: [windows]
+      - cmd: mkdir -p {{.OUT_DIR}}/resume {{.OUT_DIR}}/letter
+        platforms: [linux, darwin]
+
+  watch:resume:
+    desc: "Watch resume for changes (usage: task watch:resume [-- <variant>])"
     vars:
-      VARIANT: "{{.CLI_ARGS | default .DEFAULT_VARIANT}}"
+      VARIANT: "{{.CLI_ARGS | default .DEFAULT_RESUME_VARIANT}}"
+    deps: [prep]
     cmds:
       - "{{.BANNER}} Watching changes to resume variant: {{.VARIANT}}"
-      - typst watch resume.typ {{.OUT_DIR}}/{{.NAME}}-{{.VARIANT}}.pdf --font-path {{.FONT_PATH}} --input content=content/{{.VARIANT}}.yaml
+      - cmd: powershell -NoProfile -Command "if (-not (Test-Path 'content/doc-resume/{{.VARIANT}}.yaml')) { Write-Host 'Resume variant {{.VARIANT}} not found (exiting)'; exit 1 }"
+        platforms: [windows]
+      - cmd: test -f content/doc-resume/{{.VARIANT}}.yaml || (echo "Resume variant {{.VARIANT}} not found (exiting)" && exit 1)
+        platforms: [linux, darwin]
+      - typst watch doc-resume.typ {{.OUT_DIR}}/resume/{{.NAME}}-{{.VARIANT}}.pdf --font-path {{.FONT_PATH}} --input content=content/doc-resume/{{.VARIANT}}.yaml
+
+  watch:letter:
+    desc: "Watch letter for changes (usage: task watch:letter [-- <variant>])"
+    vars:
+      VARIANT: "{{.CLI_ARGS | default .DEFAULT_LETTER_VARIANT}}"
+    deps: [prep]
+    cmds:
+      - "{{.BANNER}} Watching changes to cover letter variant: {{.VARIANT}}"
+      - cmd: powershell -NoProfile -Command "if (-not (Test-Path 'content/doc-letter/{{.VARIANT}}.yaml')) { Write-Host 'Cover letter variant {{.VARIANT}} not found (exiting)'; exit 1 }"
+        platforms: [windows]
+      - cmd: test -f content/doc-letter/{{.VARIANT}}.yaml || (echo "Cover letter variant {{.VARIANT}} not found (exiting)" && exit 1)
+        platforms: [linux, darwin]
+      - typst watch doc-letter.typ {{.OUT_DIR}}/letter/{{.NAME}}-{{.VARIANT}}.pdf --font-path {{.FONT_PATH}} --input content=content/doc-letter/{{.VARIANT}}.yaml
+
+  generate:resume:
+    desc: "Compile resume PDF (usage: task generate:resume [-- <variant>])"
+    vars:
+      VARIANT: "{{.CLI_ARGS | default .DEFAULT_RESUME_VARIANT}}"
+    deps: [prep]
+    cmds:
+      - "{{.BANNER}} Generating resume for variant: {{.VARIANT}}"
+      - cmd: powershell -NoProfile -Command "if (-not (Test-Path 'content/doc-resume/{{.VARIANT}}.yaml')) { Write-Host 'Resume variant {{.VARIANT}} not found (exiting)'; exit 1 }"
+        platforms: [windows]
+      - cmd: test -f content/doc-resume/{{.VARIANT}}.yaml || (echo "Resume variant {{.VARIANT}} not found (exiting)" && exit 1)
+        platforms: [linux, darwin]
+      - typst compile doc-resume.typ {{.OUT_DIR}}/resume/{{.NAME}}-{{.VARIANT}}.pdf --font-path {{.FONT_PATH}} --input content=content/doc-resume/{{.VARIANT}}.yaml
+
+  generate:letter:
+    desc: "Compile letter PDF (usage: task generate:letter [-- <variant>])"
+    vars:
+      VARIANT: "{{.CLI_ARGS | default .DEFAULT_LETTER_VARIANT}}"
+    deps: [prep]
+    cmds:
+      - "{{.BANNER}} Generating cover letter for variant: {{.VARIANT}}"
+      - cmd: powershell -NoProfile -Command "if (-not (Test-Path 'content/doc-letter/{{.VARIANT}}.yaml')) { Write-Host 'Cover letter variant {{.VARIANT}} not found (exiting)'; exit 1 }"
+        platforms: [windows]
+      - cmd: test -f content/doc-letter/{{.VARIANT}}.yaml || (echo "Cover letter variant {{.VARIANT}} not found (exiting)" && exit 1)
+        platforms: [linux, darwin]
+      - typst compile doc-letter.typ {{.OUT_DIR}}/letter/{{.NAME}}-{{.VARIANT}}.pdf --font-path {{.FONT_PATH}} --input content=content/doc-letter/{{.VARIANT}}.yaml
 
   generate:
-    silent: true
-    desc: "Compile resume PDF (usage: task generate [-- <variant>])"
-    vars:
-      VARIANT: "{{.CLI_ARGS | default .DEFAULT_VARIANT}}"
-    cmds:
-      - "{{.BANNER}} Generating resume for the variant: {{.VARIANT}}"
-      - cmd: powershell -NoProfile -Command "New-Item -ItemType Directory -Force -Path {{.OUT_DIR}} | Out-Null"
-        platforms: [windows]
-      - cmd: mkdir -p {{.OUT_DIR}}
-        platforms: [linux, darwin]
-      - typst compile resume.typ {{.OUT_DIR}}/{{.NAME}}-{{.VARIANT}}.pdf --font-path {{.FONT_PATH}} --input content=content/{{.VARIANT}}.yaml
-      - "{{.BANNER}} done -> {{.OUT_DIR}}/{{.NAME}}-{{.VARIANT}}.pdf"
+    desc: "Compile all documents"
+    deps: [generate:resume, generate:letter]
 
   list:
-    silent: true
     desc: "List available variants"
     cmds:
-      - "{{.BANNER}} Listing the available resume variants"
+      - "{{.BANNER}} Listing available variants for resume and cover letter"
       - cmd: powershell -NoProfile -File scripts/list-variants.ps1
         platforms: [windows]
       - cmd: bash scripts/list-variants.sh
         platforms: [linux, darwin]
 
   cleanup:
-    silent: true
     desc: "Remove generated PDFs"
     cmds:
       - "{{.BANNER}} Cleaning up generated artifacts"
-      - cmd: powershell -Command "Remove-Item {{.OUT_DIR}}/*.pdf -ErrorAction SilentlyContinue"
+      - cmd: powershell -NoProfile -Command "Remove-Item {{.OUT_DIR}} -Recurse -ErrorAction SilentlyContinue"
         platforms: [windows]
-      - cmd: rm -f {{.OUT_DIR}}/*.pdf
+      - cmd: rm -rf {{.OUT_DIR}}
         platforms: [linux, darwin]

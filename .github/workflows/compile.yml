@@ -1,4 +1,4 @@
-name: Build & Push Resume PDF
+name: Build & Push Documents
 
 on:
   push:
@@ -10,13 +10,15 @@ env:
   TARGET_REPO: patppuccin/portfolio
   RESUME_VARIANT: devops-resume
   RESUME_PATH: public/resume-patrick-ambrose.pdf
+  LETTER_VARIANT: devops-letter
+  LETTER_PATH: public/letter-patrick-ambrose.pdf
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout resume source
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Install Typst
@@ -26,12 +28,25 @@ jobs:
           sudo install -m 755 typst-x86_64-unknown-linux-musl/typst /usr/local/bin/typst
           rm -rf typst-x86_64-unknown-linux-musl*
 
-      - name: Compile Typst to PDF
+      - name: Compile documents
         run: |
-          mkdir -p generated
-          typst compile resume.typ generated/patrick-ambrose-${RESUME_VARIANT}.pdf \
-            --font-path ./assets/fonts \
-            --input content=content/${RESUME_VARIANT}.yaml
+          mkdir -p generated/resume generated/letter
+
+          if [ -f "content/doc-resume/${RESUME_VARIANT}.yaml" ]; then
+            typst compile doc-resume.typ generated/resume/patrick-ambrose-${RESUME_VARIANT}.pdf \
+              --font-path ./assets/fonts \
+              --input content=content/doc-resume/${RESUME_VARIANT}.yaml
+          else
+            echo "Resume variant ${RESUME_VARIANT} not found, skipping"
+          fi
+
+          if [ -f "content/doc-letter/${LETTER_VARIANT}.yaml" ]; then
+            typst compile doc-letter.typ generated/letter/patrick-ambrose-${LETTER_VARIANT}.pdf \
+              --font-path ./assets/fonts \
+              --input content=content/doc-letter/${LETTER_VARIANT}.yaml
+          else
+            echo "Letter variant ${LETTER_VARIANT} not found, skipping"
+          fi
 
       - name: Push to portfolio repo
         run: |
@@ -44,11 +59,17 @@ jobs:
 
           git clone --depth 1 https://${{ secrets.RESUME_PUSH_TO_PORTFOLIO_REPO }}@github.com/${TARGET_REPO}.git target-repo
 
-          cp generated/patrick-ambrose-${RESUME_VARIANT}.pdf target-repo/${RESUME_PATH}
+          if [ -f "generated/resume/patrick-ambrose-${RESUME_VARIANT}.pdf" ]; then
+            cp generated/resume/patrick-ambrose-${RESUME_VARIANT}.pdf target-repo/${RESUME_PATH}
+          fi
+
+          if [ -f "generated/letter/patrick-ambrose-${LETTER_VARIANT}.pdf" ]; then
+            cp generated/letter/patrick-ambrose-${LETTER_VARIANT}.pdf target-repo/${LETTER_PATH}
+          fi
 
           cd target-repo
 
-          git add ${RESUME_PATH}
-          git diff --cached --quiet || git commit -m "chore(ci): update resume PDF ($(date +'%Y-%m-%d %H:%M:%S'))"
+          git add ${RESUME_PATH} ${LETTER_PATH}
+          git diff --cached --quiet || git commit -m "chore(ci): update documents ($(date +'%Y-%m-%d %H:%M:%S'))"
 
           git push origin main

@@ -1,8 +1,8 @@
 // ==== Resume Content =====================================
 
-#import "resume-styles.typ": *
+#import "layouts/resume-styles.typ": *
 
-#let content-path = sys.inputs.at("content", default: "content/devops-resume.yaml")
+#let content-path = sys.inputs.at("content", default: "content/doc-resume/devops-resume.yaml")
 #let cfg = yaml(content-path)
 
 #show: resume.with(

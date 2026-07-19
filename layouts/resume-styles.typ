@@ -44,7 +44,7 @@
 // ==== Component Styling =======================================
 
 #let icon(name, shift: 1.5pt) = {
-  box(baseline: shift, height: 9pt, image("assets/icons/" + name + ".svg"))
+  box(baseline: shift, height: 9pt, image("../assets/icons/" + name + ".svg"))
   h(2.5pt)
 }
 

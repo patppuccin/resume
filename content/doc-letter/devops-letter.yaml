@@ -1,0 +1,103 @@
+# Cover Letter Content =========================================================
+# The content below is used for the cover letter generation. Modify as needed.
+
+document:
+  title: Patrick Ambrose - Cover Letter
+  author: Patrick Ambrose
+  keywords: [DevOps, Kubernetes, AWS, Terraform, CI/CD]
+
+personal:
+  name: Patrick Ambrose
+  title: DevOps & Platform Engineer
+  location: Chennai, Tamil Nadu, India
+
+contacts:
+  - type: phone
+    label: +91 78716 10905
+    url: tel:+917871610905
+  - type: email
+    label: hey@patrickambrose.com
+    url: mailto:hey@patrickambrose.com
+  - type: github
+    label: "@patppuccin"
+    url: https://github.com/patppuccin
+  - type: linkedin
+    label: "@pat-ambrose"
+    url: https://linkedin.com/in/pat-ambrose
+  - type: website
+    label: patrickambrose.com
+    url: https://patrickambrose.com
+
+recipient:
+  to: Platform Engineering
+  org: Acme Corp
+  loc: Chennai, Tamil Nadu, India
+
+date: July 19, 2026
+
+subject: Application for Senior Platform Engineer
+
+salutation: Dear Hiring Manager,
+
+body:
+  - >
+    I am writing to apply for the Senior Platform Engineer position at Acme Corp. I have
+    spent the last six years building infrastructure and internal platforms across cloud
+    and hybrid environments, and this kind of work is where I feel most at home. Platform
+    engineering sits at the intersection of reliability, developer experience, and scale,
+    and that is exactly the space I have been operating in. When I came across this role,
+    it felt like a natural next step rather than a stretch.
+  - >
+    Most recently at TCS, I have been building an enterprise-grade AWS IaC delivery
+    platform for a large regulated client. The work spans modular Terraform libraries,
+    AWS account vending with full OU and SCP lifecycle automation, and a policy
+    governance layer built on OPA and Rego aligned to AWS FSBP controls. I also
+    implemented a plan integrity chain where Terraform plan artifacts are keyed to
+    the PR and commit, verified via SHA256, and re-evaluated by OPA at merge time.
+    The goal was to make the gap between what reviewers approve and what actually
+    runs in production as close to zero as possible. That kind of rigor around
+    correctness and auditability is something I have come to care about deeply.
+  - >
+    Before TCS, I spent nearly four years at Caplin Steriles running infrastructure
+    end to end. I built a real-time media platform processing over 200 CCTV streams
+    using MediaMTX and FFmpeg, set up CI/CD pipelines with Jenkins, migrated services
+    to Caddy with automated TLS, and wrote Python and Playwright automation that cut
+    provisioning time by 80 percent. A fair amount of that work involved bridging
+    camera feeds across isolated network segments with no clean documentation, which
+    sharpened my instinct for debugging systems where nothing is obvious and
+    everything is interconnected. I learned to be comfortable sitting with ambiguity
+    until the picture becomes clear.
+  - >
+    Earlier in my career I worked at Dr. Reddy's Laboratories on supply chain planning,
+    which sounds unrelated but taught me something important. Automation that actually
+    sticks has to fit the way people work, not the other way around. I built Python
+    scripts that pulled SAP data and cut report generation from four hours to fifteen
+    minutes. The scripts were not clever. They were just reliable and did exactly what
+    the team needed. That lesson has stayed with me every time I have been tempted to
+    over-engineer something.
+  - >
+    I have a habit of reaching for Go when I need something reliable and fast to ship.
+    Over time that turned into a small open source ecosystem under the patppuccin org
+    on GitHub. A shell-aware secrets manager with AES-256-GCM encryption and hooks
+    for bash, zsh, fish, nushell, and PowerShell. A terminal prompt library with
+    composable interactive components used across my own tooling. A directory tree
+    renderer with gitignore-aware filtering and Unicode connectors. None of these
+    started as portfolio pieces. They started because I needed the tool and nothing
+    existing felt right. I find that open source work keeps me honest about the
+    quality I expect from myself, because there is no one else to blame when
+    something is rough.
+  - >
+    I also care a lot about documentation and the developer experience side of
+    platform work. A pipeline that nobody understands is a pipeline that will
+    eventually be worked around. I try to build things that are legible, that
+    have obvious failure modes, and that new engineers can pick up without needing
+    a guided tour. That is harder than it sounds and more valuable than most
+    teams give it credit for.
+  - >
+    The idea of working on infrastructure that other engineers genuinely enjoy using,
+    that gets out of their way and lets them ship, is what gets me up in the morning.
+    I would love to bring that same mindset to the Platform Engineering team at Acme Corp
+    and contribute to something meaningful. I am ready for that challenge and genuinely
+    excited about what a strong team environment would push me to build.
+
+closing: Sincerely,
