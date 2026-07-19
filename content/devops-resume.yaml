@@ -1,0 +1,121 @@
+# ============================================================
+# RESUME CONTENT - Swap this file per job application
+# ============================================================
+
+document:
+  title: Patrick Ambrose - DevOps Engineer Resume
+  author: Patrick Ambrose
+  keywords: [DevOps, Kubernetes, AWS, Terraform, CI/CD]
+
+personal:
+  name: Patrick Ambrose
+  title: DevOps Engineer
+  location: Chennai, Tamil Nadu, India
+  address: Chennai, Tamil Nadu, India
+
+contacts:
+  - type: phone
+    label: +91 78716 10905
+    url: tel:+917871610905
+  - type: email
+    label: hey@patrickambrose.com
+    url: mailto:hey@patrickambrose.com
+  - type: github
+    label: "@patppuccin"
+    url: https://github.com/patppuccin
+  - type: linkedin
+    label: "@pat-ambrose"
+    url: https://linkedin.com/in/pat-ambrose
+  - type: website
+    label: patrickambrose.com
+    url: https://patrickambrose.com
+  - type: website
+    label: patppuccin.com
+    url: https://patppuccin.com
+
+summary: >
+  DevOps Engineer with 6+ years of experience building scalable infrastructure,
+  CI/CD pipelines, and internal platforms across cloud and hybrid environments.
+  Skilled in Go, Python, AWS, Terraform, and Kubernetes. Delivered enterprise-grade
+  IaC platforms, real-time media systems, and automation tooling that cut manual
+  operations by 80%.
+
+experience:
+  - role: Automation Engineer – Terraform & IaC
+    date: March 2026 – Present
+    org_name: Tata Consultancy Services
+    org_link: https://www.tcs.com/
+    location: Chennai, India
+    details:
+      - Building an enterprise-grade AWS IaC platform covering modular Terraform libraries with environment orchestration for a large regulated organization.
+      - Implementing robust good security practices with a policy layer using OPA/Rego.
+      - Building flexible CI/CD pipelines using Bitbucket integrating OIDC-based AWS auth.
+
+  - role: Senior Executive, Digital Transformation
+    date: August 2022 – February 2026
+    org_name: Caplin Steriles Limited
+    org_link: https://www.caplinsteriles.net/
+    location: Chennai, India
+    details:
+      - Architected a real-time media platform processing 200+ CCTV streams with MediaMTX and FFmpeg for transcoding, archival, and playback.
+      - Built CI/CD pipelines with Jenkins and migrated 10+ services to Caddy with automated TLS provisioning.
+      - Reduced application provisioning time by 80% via Python/Playwright automation, saving 20+ hours monthly.
+
+  - role: Planning & Scheduling Specialist
+    date: July 2020 – August 2022
+    org_name: Dr. Reddy's Laboratories
+    org_link: https://www.drreddys.com/
+    location: Hyderabad, India
+    details:
+      - Automated supply chain workflows using Excel VBA, PowerQuery and Macros, reducing manual coordination by 60% across 4 production facilities cutting report generation from 4 hours to 15 minutes.
+
+skills:
+  - name: Languages
+    tools: [Go, Python, Bash, PowerShell, JavaScript/TypeScript]
+
+  - name: Cloud & Infrastructure
+    tools: [AWS, Cloudflare, Docker, Podman, Kubernetes, Terraform, Ansible]
+
+  - name: CI/CD & Automation
+    tools: [Jenkins, GitHub Actions, GitLab CI, Bitbucket Pipelines, Packer]
+
+  - name: Observability & Databases
+    tools: [Prometheus, Grafana, Loki, PostgreSQL, MySQL, MongoDB, Redis]
+
+  - name: Networking & Security
+    tools: [Nginx, Caddy, Traefik, HAProxy, HashiCorp Vault, SOPS, OPA/Rego]
+
+projects:
+  - name: KREDENV
+    technologies: [Go, CLI]
+    date: 2026 – Present
+    url: https://github.com/patppuccin/kredenv
+    desc: Automatic shell-aware local secrets management CLI with AES-256-GCM encryption & a YAML manifest.
+
+  - name: TERMACTIONS
+    technologies: [Go, CLI]
+    date: 2025 – Present
+    url: https://github.com/patppuccin/termactions
+    desc: Go terminal prompt library with composable interactive components used across the patppuccin ecosystem.
+
+  - name: BEAUTREE
+    technologies: [Go, CLI]
+    date: 2026 – Present
+    url: https://github.com/patppuccin/beautree
+    desc: Pretty directory tree CLI with three-layer config, .gitignore-aware filtering, and Unicode connectors with ASCII fallback.
+
+certifications:
+  - name: Certified Solutions Architect Associate
+    issuer: Amazon Web Services
+    year: 2022
+
+  - name: Certified Cloud Practitioner
+    issuer: Amazon Web Services
+    year: 2021
+
+education:
+  - degree: Bachelor of Technology in Biotechnology
+    date: 2016 – 2020
+    inst_name: SASTRA University
+    inst_link: http://www.sastra.edu/
+    location: Tanjavur, Tamil Nadu, India

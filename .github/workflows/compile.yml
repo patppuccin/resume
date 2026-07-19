@@ -5,6 +5,12 @@ on:
     branches: [main]
   workflow_dispatch:
 
+env:
+  TYPST_VERSION: "0.14.2"
+  TARGET_REPO: patppuccin/portfolio
+  RESUME_VARIANT: devops-resume
+  RESUME_PATH: public/resume-patrick-ambrose.pdf
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,41 +21,34 @@ jobs:
 
       - name: Install Typst
         run: |
-          wget -q https://github.com/typst/typst/releases/latest/download/typst-x86_64-unknown-linux-musl.tar.xz
+          wget -q https://github.com/typst/typst/releases/download/v${TYPST_VERSION}/typst-x86_64-unknown-linux-musl.tar.xz
           tar -xf typst-x86_64-unknown-linux-musl.tar.xz
           sudo install -m 755 typst-x86_64-unknown-linux-musl/typst /usr/local/bin/typst
           rm -rf typst-x86_64-unknown-linux-musl*
 
       - name: Compile Typst to PDF
         run: |
-          mkdir -p out
-          typst compile --font-path ./assets/fonts/ ./resume.typ resume-patrick-ambrose.pdf
+          mkdir -p generated
+          typst compile resume.typ generated/patrick-ambrose-${RESUME_VARIANT}.pdf \
+            --font-path ./assets/fonts \
+            --input content=content/${RESUME_VARIANT}.yaml
 
       - name: Push to portfolio repo
-        env:
-          TARGET_REPO: patppuccin/portfolio
-          TARGET_PATH: public/resume-patrick-ambrose.pdf
         run: |
-          set -e  # exit on first error
-      
-          # Configure Git identity for CI commits
+          set -e
+
           git config --global user.name "Pat Ambrose (CI)"
           git config --global user.email "actions@github.com"
           git config --global advice.detachedHead false
           git config --global init.defaultBranch main
-      
-          # Clone the target repo (shallow for performance)
+
           git clone --depth 1 https://${{ secrets.RESUME_PUSH_TO_PORTFOLIO_REPO }}@github.com/${TARGET_REPO}.git target-repo
-      
-          # Copy the generated PDF into the correct location
-          cp resume-patrick-ambrose.pdf target-repo/${TARGET_PATH}
-      
+
+          cp generated/patrick-ambrose-${RESUME_VARIANT}.pdf target-repo/${RESUME_PATH}
+
           cd target-repo
-      
-          # Add and commit changes if any
-          git add ${TARGET_PATH}
+
+          git add ${RESUME_PATH}
           git diff --cached --quiet || git commit -m "chore(ci): update resume PDF ($(date +'%Y-%m-%d %H:%M:%S'))"
-      
-          # Push to main
+
           git push origin main
-        

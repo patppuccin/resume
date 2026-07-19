@@ -1,80 +1,78 @@
-#import "resume-layout.typ": *
-#let cfg = yaml("resume-config.yaml")
+// ==== Resume Content =====================================
 
+#import "resume-styles.typ": *
 
-#resume(
-  name: cfg.personal.name,
-  position: cfg.personal.title,
-  location: cfg.personal.location,
-  links: (
-    (name: "phone", link: cfg.contacts.phone.url, display: cfg.contacts.phone.displayText),
-    // (name: "location", link: cfg.contacts.location.url, display: cfg.contacts.location.displayText),
-    (name: "email", link: cfg.contacts.email.url, display: cfg.contacts.email.displayText),
-    (name: "github", link: cfg.contacts.github.url, display: cfg.contacts.github.displayText),
-    (name: "linkedin", link: cfg.contacts.linkedin.url, display: cfg.contacts.linkedin.displayText),
-    (name: "website", link: cfg.contacts.website.url, display: cfg.contacts.website.displayText),
-  ),
-  summary: (cfg.summary),
+#let content-path = sys.inputs.at("content", default: "content/devops-resume.yaml")
+#let cfg = yaml(content-path)
 
-  // left-side =============================================
-  [
-
-    == Experience
-    #for job in cfg.jobs [
-      === #job.position
-      #v(-2pt)
-      _#link(job.company.link)[#job.company.name]_
-      #v(0.2em)
-      #term[#job.period][#job.company.location]
-
-      #for point in job.description [
-        - #eval(point, mode: "markup")
-      ]
-      #v(1em)
-    ]
-
-    == Open Source Projects
-    #for project in cfg.projects [
-      #project-header(project.name, project.link, project.year)
-      #project-content(project.description, project.link)
-    ]
-
-  ],
-
-  // right-side =============================================
-  [
-    == Methodologies
-    #text(tracking: 0.02em)[#cfg.methodologies.join(", ")]
-
-    == Tech Stack
-    #for tech in cfg.tech_stack [
-      #text(weight: "semibold", spacing: 102%, tracking: 0.2pt)[#tech.name]:
-      #text(spacing: 102%, tracking: 0.2pt)[#tech.tools.join(", ")]
-      #v(-2pt)
-    ]
-
-    == Certifications
-
-    #for cert in cfg.certifications [
-      #grid(
-        columns: (1fr, auto),
-        column-gutter: 1em,
-        [=== #cert.name], align(right)[#text()[#cert.year]],
-      )
-      #cert.description \
-    ]
-
-    == Education
-    #for edu in cfg.education [
-      #if edu.place.link != "" [
-        *#link(edu.place.link)[#edu.place.name]*\
-      ] else [
-        *#edu.place.name*\
-      ]
-      #edu.degree in #edu.major
-
-      #edu.from - #edu.to #h(1fr) #edu.location
-    ]
-
-  ],
+#show: resume.with(
+  doc-title: cfg.document.title,
+  doc-author: cfg.document.author,
+  doc-keywords: cfg.document.keywords,
+  font: "Space Grotesk",
 )
+
+#header(
+  name: cfg.personal.name,
+  title: cfg.personal.title,
+  location: cfg.personal.location,
+  contacts: cfg.contacts,
+)
+
+#summary(cfg.summary)
+
+== Work Experience
+
+#for job in cfg.experience [
+  #workex(
+    role: job.role,
+    date: job.date,
+    org-name: job.org_name,
+    org-link: job.at("org_link", default: none),
+    location: job.location,
+    details: {
+      for point in job.details [
+        - #point
+      ]
+    },
+  )
+]
+
+== Skills
+
+#for skill-category in cfg.skills [
+  #skills(skill-category)
+]
+
+// #skills(cfg.skills)
+
+== Projects
+
+#for proj in cfg.projects [
+  #project(
+    name: proj.name,
+    technologies: proj.at("technologies", default: ()),
+    date: proj.at("date", default: none),
+    url: proj.at("url", default: none),
+    desc: proj.at("desc", default: none),
+  )
+]
+
+== Certifications
+
+#for cert in cfg.certifications [
+  #certification(name: cert.name, issuer: cert.issuer, year: cert.year)
+]
+
+== Education
+
+#for ed in cfg.education [
+  #edu(
+    degree: ed.degree,
+    date: ed.date,
+    inst-name: ed.inst_name,
+    inst-link: ed.at("inst_link", default: none),
+    location: ed.location,
+    gpa: ed.at("gpa", default: none),
+  )
+]

@@ -1,4 +1,14 @@
 # GITIGNORE Configuration for Resume =======================
 
-# Ignore the compiled (PDF) outputs
+# Artifacts
+archive/
+generated/
 *.pdf
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
