@@ -1,86 +1,86 @@
-# RESUME - Modern ATS-Friendly Resume with Typst
+# jobdocs
 
-A clean, ATS-friendly resume template built with Typst. Features a two-column layout optimized for readability and information density.
+A YAML-driven document generation system for job applications, built with Typst and automated via GitHub Actions.
 
-The published version of the resume can be found [here](https://patrickambrose.com/resume-patrick-ambrose.pdf).
+## Documents
 
-## Features
+- **Resume** — structured work history, skills, projects, and certifications
+- **Letter** — cover letter with recipient, body paragraphs, and a signature
 
-- **ATS Friendly**: Structured markup that applicant tracking systems can easily parse
-- **YAML Configuration**: Separate your content from layout—edit your resume data in a simple YAML file
-- **Two-Column Layout**: Experience and projects on the left, skills and details on the right
-- **Sleek and Modern**: Uses Space Grotesk font for a contemporary look with clean icons from [SVG Repo](https://www.svgrepo.com)
-
-## Quick Start
-
-> Prerequisites: Install the [Typst CLI](https://github.com/typst/typst#installation) on your machine.
-
-## Project Structure
+## Structure
 
 ```
-├── assets/
-│   ├── fonts/                 # Space Grotesk font files
-│   └── icons/                 # SVG icons for contact info
-├── layout.typ                 # Template and styling functions
-├── resume-config.yaml         # Resume data (configuration - edit this file)
-├── resume-entrypoint.yaml     # Entrypoint for ther resume
-└── resume-layout.typ          # Layout and styling
+assets/
+  fonts/          # Space Grotesk + Pinyon Script
+  icons/          # SVG icons for contact links
+content/
+  doc-resume/     # One YAML file per resume variant
+  doc-letter/     # One YAML file per letter variant
+layouts/
+  resume-styles.typ
+  letter-styles.typ
+scripts/
+  list-variants.ps1
+  list-variants.sh
+generated/        # gitignored — compiled PDFs land here
+  resume/
+  letter/
+doc-resume.typ    # Resume entrypoint
+doc-letter.typ    # Letter entrypoint
+taskfile.yaml
 ```
 
-### Usage
+## Prerequisites
 
-1. **Clone the repository**:
-   ```sh
-   git clone https://github.com/patpuuccin/resume.git && cd resume
-   ```
+- [Typst](https://typst.app) `v0.14.2`
+- [Task](https://taskfile.dev)
 
-2. **Edit the information**: Edit the details in `resume-config.yaml` with the preferred editor of your choice to update your resume.
+## Usage
 
-3. **Compile to PDF**:
-   ```sh
-   typst compile --font-path ./assets/fonts/ ./resume.typ
-   ```
-   
-   Your resume will be generated as `resume.pdf` in the same directory.
+```sh
+# List available variants
+task list
 
-4. **Auto-compile on changes** (optional):
-   ```sh
-   typst watch --font-path ./assets/fonts/ ./resume.typ
-   ```
+# Compile resume (default variant: devops-resume)
+task generate:resume
 
-## Customization
+# Compile letter (default variant: devops-letter)
+task generate:letter
 
-### Updating Your Information
+# Compile both
+task generate
 
-Edit `resume-config.yaml` with your:
+# Watch resume for changes
+task watch:resume
 
-- Personal details and contact information
-- Work experience
-- Projects
-- Skills and methodologies
-- Education
-- Certifications
+# Watch letter for changes
+task watch:letter
 
-### Modifying the Layout
+# Clean generated artifacts
+task cleanup
+```
 
-To customize colors, spacing, or structure, edit `resume-layout.typ`. The template uses modular functions that are easy to adjust.
+To use a specific variant:
 
-### Changing Fonts
+```sh
+task generate:resume -- my-variant
+task generate:letter -- my-variant
+```
 
-Replace the `.ttf` files in `assets/fonts/` with your preferred typeface and update the font references in `resume-layout.typ`.
+## Adding a Variant
 
-## Acknowledgments
+Drop a new YAML file in `content/doc-resume/` or `content/doc-letter/` and pass its name as the variant argument. The YAML structure is documented in the existing files.
 
-- Inspired by:
-   - [alta-typst](https://github.com/GeorgeHoneywood/alta-typst) by George Honeywood
-   - [vantage-typst](https://github.com/sardorml/vantage-typst) by Sardor Mamadaliev
-- Icons from [SVG Repo](https://www.svgrepo.com) under their [licensing terms](https://www.svgrepo.com/page/licensing/).
-- Fonts from [Google Fonts](https://fonts.google.com) under their [licensing terms](https://fonts.google.com/attribution).
+## CI/CD
+
+Pushing to `main` compiles the declared variants and pushes the PDFs to a target repository. Configure which variants go live at the top of `.github/workflows/compile.yml`:
+
+```yaml
+env:
+  RESUME_VARIANT: devops-resume
+  LETTER_VARIANT: devops-letter
+```
 
 ## License
 
-MIT License - see [LICENSE](./LICENSE) for details.
-
----
-
-**Questions or issues?** Open an issue on GitHub or submit a pull request!
+This project is licensed under the [MIT License](LICENSE).
